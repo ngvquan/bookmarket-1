@@ -1,0 +1,3698 @@
+{
+  "database": "bookmarket_foundation",
+  "exportedAt": "2026-11-08T07:03:30.857Z",
+  "collections": [
+    {
+      "name": "admins",
+      "active": true,
+      "documents": 1,
+      "fieldCount": 7,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "email",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Email duy nhất"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "passwordHash",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mật khẩu đã băm bcrypt"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "email": 1
+          },
+          "name": "email_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "authors",
+      "active": true,
+      "documents": 68,
+      "fieldCount": 7,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "biography",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Giới thiệu tác giả"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "nameSearch",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Tên không dấu để tìm kiếm"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 68,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "nameSearch": 1
+          },
+          "name": "nameSearch_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "banktransactions",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 8,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "amount",
+          "types": [
+            "Number"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": ""
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "description",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mô tả"
+        },
+        {
+          "name": "orderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "DigitalOrder",
+          "description": "Đơn mẹ của đơn con"
+        },
+        {
+          "name": "reason",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "no_code",
+            "no_order",
+            "not_enough",
+            "wrong_account",
+            "order_cancelled",
+            "outgoing"
+          ],
+          "description": "Lý do giao dịch ngân hàng chưa khớp"
+        },
+        {
+          "name": "resolved",
+          "types": [
+            "Boolean"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "description": "Giao dịch chưa khớp đã được xử lý"
+        },
+        {
+          "name": "transactionId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "ID giao dịch ngân hàng dùng đối soát, unique"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "_id_",
+          "key": {
+            "_id": 1
+          }
+        },
+        {
+          "key": {
+            "transactionId": 1
+          },
+          "unique": true,
+          "background": true,
+          "name": "transactionId_1"
+        },
+        {
+          "key": {
+            "resolved": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "background": true,
+          "name": "resolved_1_createdAt_-1__id_-1"
+        },
+        {
+          "key": {
+            "orderId": 1
+          },
+          "background": true,
+          "name": "orderId_1"
+        }
+      ]
+    },
+    {
+      "name": "books",
+      "active": true,
+      "documents": 91,
+      "fieldCount": 10,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "authorIds",
+          "types": [
+            "array"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "description": "Danh sách tác giả"
+        },
+        {
+          "name": "catalogKey",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Khóa chống tạo trùng tác phẩm"
+        },
+        {
+          "name": "categoryId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Category",
+          "description": "Thể loại tác phẩm"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "description",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mô tả"
+        },
+        {
+          "name": "title",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tác phẩm"
+        },
+        {
+          "name": "titleSearch",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên sách không dấu để tìm kiếm"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 91,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "titleSearch": 1
+          },
+          "name": "titleSearch_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "catalogKey": 1
+          },
+          "name": "catalogKey_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "authorIds": 1
+          },
+          "name": "authorIds_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "categoryId": 1
+          },
+          "name": "categoryId_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "active": true,
+      "documents": 5,
+      "fieldCount": 6,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "nameSearch",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Tên không dấu để tìm kiếm"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 5,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "nameSearch": 1
+          },
+          "name": "nameSearch_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "conversations",
+      "active": true,
+      "documents": 2,
+      "fieldCount": 16,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "book",
+          "types": [
+            "object"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": false,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": ""
+        },
+        {
+          "name": "book.author",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "book.listingId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "Listing",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "book.title",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "buyerReadSequence",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": ""
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "lastMessageAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": ""
+        },
+        {
+          "name": "lastSequence",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": ""
+        },
+        {
+          "name": "lastText",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "nextSequence",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": ""
+        },
+        {
+          "name": "sellerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đăng tin"
+        },
+        {
+          "name": "sellerReadSequence",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": ""
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 2,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "sellerId": 1
+          },
+          "name": "buyerId_1_sellerId_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "lastMessageAt": -1,
+            "_id": -1
+          },
+          "name": "buyerId_1_lastMessageAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "sellerId": 1,
+            "lastMessageAt": -1,
+            "_id": -1
+          },
+          "name": "sellerId_1_lastMessageAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "digitalorders",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 18,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "bank.accountName",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "bank.accountNo",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "bank.id",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "bank.name",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "bankTransactionId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "ID giao dịch ngân hàng, unique và sparse"
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "cartKey",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Khóa bộ listingIds để dùng lại đơn đang chờ"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "expiresAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm đơn hoặc phiên hết hạn"
+        },
+        {
+          "name": "items",
+          "types": [
+            "Array"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "listingId",
+              "type": "String",
+              "required": true,
+              "ref": "Listing",
+              "enum": []
+            },
+            {
+              "name": "sellerId",
+              "type": "ObjectId",
+              "required": true,
+              "ref": "User"
+            },
+            {
+              "name": "editionId",
+              "type": "ObjectId",
+              "required": true,
+              "ref": "Edition"
+            },
+            {
+              "name": "title",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "author",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "price",
+              "type": "Number",
+              "required": true,
+              "ref": "",
+              "min": 0
+            }
+          ],
+          "description": "Snapshot tên/giá; đơn giấy có type/isbn/quantity, đơn ebook có editionId/sellerId"
+        },
+        {
+          "name": "paidAmount",
+          "types": [
+            "Number"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Số tiền thực nhận đã xác minh"
+        },
+        {
+          "name": "paidAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm server xác nhận đã thanh toán"
+        },
+        {
+          "name": "qrImageUrl",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Link ảnh VietQR từ server"
+        },
+        {
+          "name": "status",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "pending_payment",
+            "paid",
+            "cancelled",
+            "expired"
+          ],
+          "description": "Trạng thái tin hoặc đơn; xem DATA_MODEL.md cho enum tương ứng"
+        },
+        {
+          "name": "total",
+          "types": [
+            "Number"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Tổng tiền sách và phí giao"
+        },
+        {
+          "name": "transferCode",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Mã BM và 10 chữ/số dùng khớp nội dung chuyển khoản"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "_id_",
+          "key": {
+            "_id": 1
+          }
+        },
+        {
+          "key": {
+            "transferCode": 1
+          },
+          "unique": true,
+          "background": true,
+          "name": "transferCode_1"
+        },
+        {
+          "key": {
+            "bankTransactionId": 1
+          },
+          "unique": true,
+          "sparse": true,
+          "background": true,
+          "name": "bankTransactionId_1"
+        },
+        {
+          "key": {
+            "buyerId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "background": true,
+          "name": "buyerId_1_createdAt_-1__id_-1"
+        },
+        {
+          "key": {
+            "status": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "background": true,
+          "name": "status_1_createdAt_-1__id_-1"
+        },
+        {
+          "key": {
+            "buyerId": 1,
+            "cartKey": 1
+          },
+          "unique": true,
+          "partialFilterExpression": {
+            "status": "pending_payment"
+          },
+          "background": true,
+          "name": "buyerId_1_cartKey_1"
+        }
+      ]
+    },
+    {
+      "name": "ebookaccesses",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 8,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "digitalOrderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "DigitalOrder",
+          "description": "Đơn ebook đã thanh toán cấp quyền sở hữu"
+        },
+        {
+          "name": "editionId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Edition",
+          "description": "Phiên bản của tin bán"
+        },
+        {
+          "name": "grantedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm cấp quyền sở hữu ebook"
+        },
+        {
+          "name": "listingId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Listing",
+          "enum": [],
+          "description": "Tin sách đã mua và được đánh giá"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "_id_",
+          "key": {
+            "_id": 1
+          }
+        },
+        {
+          "key": {
+            "buyerId": 1,
+            "listingId": 1
+          },
+          "unique": true,
+          "background": true,
+          "name": "buyerId_1_listingId_1"
+        }
+      ]
+    },
+    {
+      "name": "editions",
+      "active": true,
+      "documents": 92,
+      "fieldCount": 9,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "binding",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "Bìa mềm",
+            "Bìa cứng",
+            "PDF"
+          ],
+          "description": "Loại bìa hoặc PDF"
+        },
+        {
+          "name": "bookId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Book",
+          "description": "Tác phẩm của phiên bản"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "isbn",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 88,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Mã phiên bản, unique khi có giá trị"
+        },
+        {
+          "name": "publisherId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "Publisher",
+          "description": "Nhà xuất bản phiên bản"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        },
+        {
+          "name": "year",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 92,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 1400,
+          "max": 2100,
+          "description": "Năm xuất bản"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "bookId": 1
+          },
+          "name": "bookId_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "isbn": 1
+          },
+          "name": "isbn_1",
+          "background": true,
+          "unique": true,
+          "sparse": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "publisherId": 1
+          },
+          "name": "publisherId_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "follows",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 5,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "followerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đang theo dõi gian hàng"
+        },
+        {
+          "name": "sellerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đăng tin"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "_id_",
+          "key": {
+            "_id": 1
+          }
+        },
+        {
+          "key": {
+            "followerId": 1,
+            "sellerId": 1
+          },
+          "unique": true,
+          "background": true,
+          "name": "followerId_1_sellerId_1"
+        },
+        {
+          "key": {
+            "followerId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "background": true,
+          "name": "followerId_1_createdAt_-1__id_-1"
+        },
+        {
+          "key": {
+            "sellerId": 1
+          },
+          "background": true,
+          "name": "sellerId_1"
+        }
+      ]
+    },
+    {
+      "name": "listings",
+      "active": true,
+      "documents": 216,
+      "fieldCount": 18,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "condition",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 65,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "Như mới",
+            "Còn tốt",
+            "Đã cũ"
+          ],
+          "description": "Tình trạng sách"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "description",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mô tả"
+        },
+        {
+          "name": "ebookFileId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "ID file PDF lưu riêng tại backend/storage, không trả công khai qua API JSON"
+        },
+        {
+          "name": "ebookPageCount",
+          "types": [
+            "Number"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "max": 100000,
+          "description": "Số trang PDF đã kiểm tra khi upload"
+        },
+        {
+          "name": "editionId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Edition",
+          "description": "Phiên bản của tin bán"
+        },
+        {
+          "name": "hiddenBy",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "seller",
+            "admin"
+          ],
+          "description": "Tin do seller hay admin ẩn"
+        },
+        {
+          "name": "images",
+          "types": [
+            "Array"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "id",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "contentType",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+              ]
+            }
+          ],
+          "description": "Tối đa 5 ảnh JPEG/PNG/WebP; database chỉ lưu ID tệp và contentType"
+        },
+        {
+          "name": "location",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Địa điểm"
+        },
+        {
+          "name": "price",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "max": 100000000,
+          "description": "Giá bán"
+        },
+        {
+          "name": "sellerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đăng tin"
+        },
+        {
+          "name": "shopId",
+          "types": [
+            "objectId",
+            "null"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "Shop",
+          "description": "Shop của tin, có thể null"
+        },
+        {
+          "name": "status",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "hidden",
+            "sold"
+          ],
+          "description": "Trạng thái tin hoặc đơn; xem DATA_MODEL.md cho enum tương ứng"
+        },
+        {
+          "name": "stock",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 202,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "max": 100000,
+          "description": "Số lượng"
+        },
+        {
+          "name": "type",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "new",
+            "used",
+            "digital"
+          ],
+          "description": "new/used/digital"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 216,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "status": 1,
+            "type": 1,
+            "createdAt": -1,
+            "_id": 1
+          },
+          "name": "status_1_type_1_createdAt_-1__id_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "status": 1,
+            "type": 1,
+            "price": 1,
+            "_id": 1
+          },
+          "name": "status_1_type_1_price_1__id_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "sellerId": 1,
+            "createdAt": -1,
+            "_id": 1
+          },
+          "name": "sellerId_1_createdAt_-1__id_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "editionId": 1,
+            "status": 1,
+            "type": 1,
+            "price": 1
+          },
+          "name": "editionId_1_status_1_type_1_price_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "shopId": 1,
+            "status": 1
+          },
+          "name": "shopId_1_status_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "messages",
+      "active": true,
+      "documents": 1,
+      "fieldCount": 11,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "clientId",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mã chống gửi trùng tin nhắn"
+        },
+        {
+          "name": "conversationId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Conversation",
+          "description": "Cuộc trò chuyện chứa tin nhắn"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "readAt",
+          "types": [
+            "null"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm người nhận đọc tin, null nếu chưa đọc"
+        },
+        {
+          "name": "recipientId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User nhận tin trong cuộc trò chuyện"
+        },
+        {
+          "name": "senderId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User gửi tin, lấy từ JWT"
+        },
+        {
+          "name": "sequence",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 1,
+          "description": "Thứ tự tin nhắn trong cuộc trò chuyện"
+        },
+        {
+          "name": "text",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": ""
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "conversationId": 1,
+            "sequence": 1
+          },
+          "name": "conversationId_1_sequence_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "conversationId": 1,
+            "senderId": 1,
+            "clientId": 1
+          },
+          "name": "conversationId_1_senderId_1_clientId_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "recipientId": 1,
+            "readAt": 1,
+            "conversationId": 1
+          },
+          "name": "recipientId_1_readAt_1_conversationId_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "notifications",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 10,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "message",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Nội dung thông báo thay đổi trạng thái đơn"
+        },
+        {
+          "name": "orderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Order",
+          "description": "Đơn mẹ của đơn con"
+        },
+        {
+          "name": "readAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm người nhận đọc tin, null nếu chưa đọc"
+        },
+        {
+          "name": "status",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "confirmed",
+            "shipping",
+            "delivered",
+            "completed",
+            "cancelled",
+            "returned"
+          ],
+          "description": "Trạng thái tin hoặc đơn; xem DATA_MODEL.md cho enum tương ứng"
+        },
+        {
+          "name": "subOrderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "SubOrder",
+          "description": "Đơn con completed chứng minh người mua được đánh giá"
+        },
+        {
+          "name": "title",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tác phẩm"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        },
+        {
+          "name": "userId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User sở hữu bản ghi"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "_id_",
+          "key": {
+            "_id": 1
+          }
+        },
+        {
+          "key": {
+            "userId": 1,
+            "readAt": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "background": true,
+          "name": "userId_1_readAt_1_createdAt_-1__id_-1"
+        },
+        {
+          "key": {
+            "userId": 1,
+            "subOrderId": 1,
+            "status": 1
+          },
+          "unique": true,
+          "background": true,
+          "name": "userId_1_subOrderId_1_status_1"
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "active": true,
+      "documents": 4,
+      "fieldCount": 13,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "idempotencyKey",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mã chống đặt trùng; unique cùng buyerId"
+        },
+        {
+          "name": "itemsTotal",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Tổng tiền sách snapshot"
+        },
+        {
+          "name": "paymentMethod",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "cod"
+          ],
+          "description": "Phương thức thanh toán, hiện chỉ cod"
+        },
+        {
+          "name": "receiverAddress",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Địa chỉ nhận hàng"
+        },
+        {
+          "name": "receiverName",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Họ tên người nhận"
+        },
+        {
+          "name": "receiverPhone",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Số điện thoại nhận hàng"
+        },
+        {
+          "name": "requestHash",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "SHA-256 nội dung đặt hàng đã chuẩn hóa để kiểm tra gửi lại"
+        },
+        {
+          "name": "shippingTotal",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Tổng phí của các đơn con"
+        },
+        {
+          "name": "total",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Tổng tiền sách và phí giao"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "idempotencyKey": 1
+          },
+          "name": "buyerId_1_idempotencyKey_1",
+          "background": true,
+          "unique": true,
+          "partialFilterExpression": {
+            "idempotencyKey": {
+              "$type": "string"
+            }
+          },
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "buyerId_1_createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "publishers",
+      "active": true,
+      "documents": 6,
+      "fieldCount": 6,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "nameSearch",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Tên không dấu để tìm kiếm"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 6,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "nameSearch": 1
+          },
+          "name": "nameSearch_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reviews",
+      "active": true,
+      "documents": 0,
+      "fieldCount": 11,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "comment",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Nhận xét người mua, trim và tối đa 2000 ký tự"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "listingId",
+          "types": [
+            "String"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Listing",
+          "enum": [],
+          "description": "Tin sách đã mua và được đánh giá"
+        },
+        {
+          "name": "orderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Order",
+          "description": "Đơn mẹ của đơn con"
+        },
+        {
+          "name": "rating",
+          "types": [
+            "Number"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 1,
+          "max": 5,
+          "description": "Điểm đánh giá thật từ người mua: số nguyên 1 đến 5"
+        },
+        {
+          "name": "reply",
+          "types": [
+            "Embedded"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "text",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "repliedAt",
+              "type": "Date",
+              "required": true,
+              "ref": ""
+            },
+            {
+              "name": "editedAt",
+              "type": "Date",
+              "required": false,
+              "ref": ""
+            }
+          ],
+          "description": "Phản hồi công khai của người bán cho đánh giá"
+        },
+        {
+          "name": "sellerId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đăng tin"
+        },
+        {
+          "name": "subOrderId",
+          "types": [
+            "ObjectId"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "SubOrder",
+          "description": "Đơn con completed chứng minh người mua được đánh giá"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "Date"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "listingId": 1
+          },
+          "name": "buyerId_1_listingId_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "listingId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "listingId_1_createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shops",
+      "active": true,
+      "documents": 27,
+      "fieldCount": 13,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "contactEmail",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Email liên hệ của shop"
+        },
+        {
+          "name": "contactName",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên người liên hệ riêng tư của shop"
+        },
+        {
+          "name": "contactPhone",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Số điện thoại liên hệ của shop"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "description",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mô tả"
+        },
+        {
+          "name": "isRegistrationComplete",
+          "types": [
+            "boolean"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Hồ sơ shop đã đủ và hợp lệ để đăng sách mới/ebook"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "ownerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "User",
+          "description": "User sở hữu shop"
+        },
+        {
+          "name": "pickupAddress",
+          "types": [
+            "object"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "province",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "ward",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "detail",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            }
+          ],
+          "description": "Địa chỉ lấy/trả hàng: province, ward, detail"
+        },
+        {
+          "name": "registrationCompletedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 1,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm hoàn tất hồ sơ shop do server đặt"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 27,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "ownerId": 1
+          },
+          "name": "ownerId_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "suborders",
+      "active": true,
+      "documents": 4,
+      "fieldCount": 13,
+      "fields": [
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "buyerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User mua hàng"
+        },
+        {
+          "name": "cancelReason",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Lý do hủy, bước đặt hàng để rỗng"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "items",
+          "types": [
+            "array"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "listingId",
+              "type": "String",
+              "required": true,
+              "ref": "Listing",
+              "enum": []
+            },
+            {
+              "name": "type",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": [
+                "new",
+                "used"
+              ]
+            },
+            {
+              "name": "title",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "author",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "isbn",
+              "type": "String",
+              "required": false,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "price",
+              "type": "Number",
+              "required": true,
+              "ref": "",
+              "min": 0,
+              "max": 100000000
+            },
+            {
+              "name": "quantity",
+              "type": "Number",
+              "required": true,
+              "ref": "",
+              "min": 1,
+              "max": 99
+            }
+          ],
+          "description": "Snapshot tên/giá; đơn giấy có type/isbn/quantity, đơn ebook có editionId/sellerId"
+        },
+        {
+          "name": "itemsTotal",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Tổng tiền sách snapshot"
+        },
+        {
+          "name": "orderId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "Order",
+          "description": "Đơn mẹ của đơn con"
+        },
+        {
+          "name": "sellerId",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "User",
+          "description": "User đăng tin"
+        },
+        {
+          "name": "shipment",
+          "types": [
+            "object"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "service",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": [
+                "standard",
+                "fast"
+              ]
+            },
+            {
+              "name": "fee",
+              "type": "Number",
+              "required": true,
+              "ref": "",
+              "min": 0
+            },
+            {
+              "name": "trackingCode",
+              "type": "String",
+              "required": false,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "events",
+              "type": "Array",
+              "required": false,
+              "ref": ""
+            }
+          ],
+          "description": "Dịch vụ, phí, mã vận đơn và các sự kiện"
+        },
+        {
+          "name": "shippingFee",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "min": 0,
+          "description": "Phí cố định của đơn con"
+        },
+        {
+          "name": "shopName",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên shop hoặc người bán tại lúc đặt"
+        },
+        {
+          "name": "status",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [
+            "pending",
+            "confirmed",
+            "shipping",
+            "delivered",
+            "completed",
+            "cancelled",
+            "returned"
+          ],
+          "description": "Trạng thái tin hoặc đơn; xem DATA_MODEL.md cho enum tương ứng"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 4,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "orderId": 1,
+            "sellerId": 1
+          },
+          "name": "orderId_1_sellerId_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "sellerId": 1,
+            "status": 1,
+            "createdAt": -1
+          },
+          "name": "sellerId_1_status_1_createdAt_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "items.listingId": 1,
+            "status": 1
+          },
+          "name": "items.listingId_1_status_1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "sellerId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "sellerId_1_createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "buyerId": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "buyerId_1_createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "status": 1,
+            "createdAt": -1,
+            "_id": -1
+          },
+          "name": "status_1_createdAt_-1__id_-1",
+          "background": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "active": true,
+      "documents": 77,
+      "fieldCount": 9,
+      "fields": [
+        {
+          "name": "__v",
+          "types": [
+            "int"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Phiên bản nội bộ Mongoose"
+        },
+        {
+          "name": "_id",
+          "types": [
+            "objectId"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "ID bản ghi"
+        },
+        {
+          "name": "addresses",
+          "types": [
+            "Array"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "children": [
+            {
+              "name": "label",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "receiverName",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "phone",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "address",
+              "type": "String",
+              "required": true,
+              "ref": "",
+              "enum": []
+            },
+            {
+              "name": "isDefault",
+              "type": "Boolean",
+              "required": false,
+              "ref": ""
+            },
+            {
+              "name": "_id",
+              "type": "ObjectId",
+              "required": false,
+              "ref": ""
+            },
+            {
+              "name": "createdAt",
+              "type": "Date",
+              "required": false,
+              "ref": ""
+            },
+            {
+              "name": "updatedAt",
+              "type": "Date",
+              "required": false,
+              "ref": ""
+            }
+          ],
+          "description": "Tối đa 3 địa chỉ nhận hàng lưu theo tài khoản"
+        },
+        {
+          "name": "createdAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm tạo"
+        },
+        {
+          "name": "email",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": true,
+          "ref": "",
+          "enum": [],
+          "description": "Email duy nhất"
+        },
+        {
+          "name": "favorites",
+          "types": [
+            "Array"
+          ],
+          "presentInDocuments": 0,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Danh sách ID tin sách yêu thích của tài khoản"
+        },
+        {
+          "name": "name",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Tên tài khoản/gian hàng"
+        },
+        {
+          "name": "passwordHash",
+          "types": [
+            "string"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": true,
+          "unique": false,
+          "ref": "",
+          "enum": [],
+          "description": "Mật khẩu đã băm bcrypt"
+        },
+        {
+          "name": "updatedAt",
+          "types": [
+            "date"
+          ],
+          "presentInDocuments": 77,
+          "inCurrentModel": true,
+          "required": false,
+          "unique": false,
+          "ref": "",
+          "description": "Thời điểm sửa"
+        }
+      ],
+      "indexes": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_",
+          "collation": {
+            "locale": "simple"
+          }
+        },
+        {
+          "v": 2,
+          "key": {
+            "email": 1
+          },
+          "name": "email_1",
+          "background": true,
+          "unique": true,
+          "collation": {
+            "locale": "simple"
+          }
+        }
+      ]
+    }
+  ]
+}

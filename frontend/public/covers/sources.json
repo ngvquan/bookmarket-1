@@ -1,0 +1,74 @@
+[
+  {
+    "style": "orange",
+    "page": "https://www.netabooks.vn/cay-cam-ngot-cua-toi-jose-mauro-de-vasconcelos",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/38822/cay-cam-ngot-cua-toi.jpg",
+    "file": "/covers/orange.jpg"
+  },
+  {
+    "style": "alchemist",
+    "page": "https://www.netabooks.vn/nha-gia-kim",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/35711/nha-gia-kim-tai-ban-2020-01.jpg",
+    "file": "/covers/alchemist.jpg"
+  },
+  {
+    "style": "slow",
+    "page": "https://www.netabooks.vn/buoc-cham-lai-giua-the-gian-voi-va",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/17108/buoc-cham-lai-giua-the-gian-voi-va-01.jpg",
+    "file": "/covers/slow.jpg"
+  },
+  {
+    "style": "midnight",
+    "page": "https://www.netabooks.vn/thu-vien-nua-dem-matt-haig",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/43624/thu-vien-nua-dem-matt-haig.jpg",
+    "file": "/covers/midnight.jpg"
+  },
+  {
+    "style": "habits",
+    "page": "https://www.alphabooks.vn/atomic-habits-thay-doi-ti-hon-hieu-qua-bat-ngo",
+    "image": "https://bizweb.dktcdn.net/thumb/grande/100/197/269/products/1thay-doi-ti-hon-hieu-qua-bat-ngo-4.jpg?v=1704690423900",
+    "file": "/covers/habits.jpg"
+  },
+  {
+    "style": "courage",
+    "page": "https://nhanam.vn/dam-bi-ghet",
+    "image": "https://bizweb.dktcdn.net/thumb/grande/100/625/048/products/dambighet01.jpg?v=1769397518573",
+    "file": "/covers/courage.jpg"
+  },
+  {
+    "style": "flowers",
+    "page": "https://www.netabooks.vn/toi-thay-hoa-vang-tren-co-xanh",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/17752/toi-thay-hoa-vang-tren-co-xanh.jpg",
+    "file": "/covers/flowers.jpg"
+  },
+  {
+    "style": "meaning",
+    "page": "https://www.netabooks.vn/di-tim-le-song",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/22828/1.jpg",
+    "file": "/covers/meaning.jpg"
+  },
+  {
+    "style": "youth",
+    "page": "https://www.netabooks.vn/tuoi-tre-dang-gia-bao-nhieu-rosie-nguyen",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/2625/tuoi-tre-dang-gia-bao-nhieu-01.jpg",
+    "file": "/covers/youth.jpg"
+  },
+  {
+    "style": "prince",
+    "page": "https://www.netabooks.vn/hoang-tu-be",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/44764/hoang-tu-be.jpg",
+    "file": "/covers/prince.jpg"
+  },
+  {
+    "style": "forest",
+    "page": "https://www.netabooks.vn/rung-na-uy",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/17829/rung-na-uy.jpg",
+    "file": "/covers/forest.jpg"
+  },
+  {
+    "style": "ocean",
+    "page": "https://www.netabooks.vn/mot-thoang-ta-ruc-ro-o-nhan-gian",
+    "image": "http://www.netabooks.vn/Data/Sites/1/Product/44187/1mot-thoang-ta-ruc-ro-o-nhan-gian.jpg",
+    "file": "/covers/ocean.jpg"
+  }
+]

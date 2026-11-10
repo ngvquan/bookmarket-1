@@ -1,0 +1,35 @@
+{
+  "name": "bookmarket-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "migrate:remove-exchange": "node scripts/migrate-remove-exchange.js",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "seed": "node scripts/seed.js",
+    "seed:extra": "node scripts/seed-extra.js",
+    "migrate": "node scripts/migrate.js",
+    "migrate:hardening": "node scripts/migrate-hardening.js",
+    "publish:books": "node scripts/publish-listings.js",
+    "export:db": "node scripts/export-database.js",
+    "copy:db": "node scripts/copy-database.js",
+    "upload:storage": "node scripts/upload-storage-to-mongodb.js",
+    "clean:test-data": "node scripts/clean-test-data.js",
+    "test": "vitest run",
+    "check": "node --check src/server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.0",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.0",
+    "vitest": "^4.1.12"
+  }
+}
