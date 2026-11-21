@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: bookmarket-api-ngvquan
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FILE_STORAGE
+        value: mongodb
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        value: http://localhost:5173,https://localhost,capacitor://localhost
+      - key: PAYMENT_BANK_ID
+        sync: false
+      - key: PAYMENT_BANK_NAME
+        sync: false
+      - key: PAYMENT_ACCOUNT_NO
+        sync: false
+      - key: PAYMENT_ACCOUNT_NAME
+        sync: false
+      - key: PAYMENT_QR_TEMPLATE
+        value: compact2
+      - key: PAYMENT_WEBHOOK_SECRET
+        sync: false

@@ -1,0 +1,17 @@
+**/node_modules/
+**/dist/
+**/test-results/
+**/coverage/
+**/.env
+**/.env.*
+!**/.env.example
+!frontend/.env.mobile
+*.zip
+*.log
+/exports/
+/archives/
+/.local/
+/backend/storage/
+/BAI_NOP_REACTJS_LAB08_LAB10/
+/database/data/
+/screenshots/
