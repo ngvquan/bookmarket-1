@@ -60,7 +60,7 @@ export default function AdminOrders({ shipping = false, services }) {
         </p>
       )}
       {busy && <p role="status">Đang tải đơn…</p>}
-      <p>
+      <p className="admin-list-count" aria-live="polite">
         {data.total} {shipping ? "đơn con đang giao" : "đơn hàng"}
       </p>
       {data.items.map((item) =>

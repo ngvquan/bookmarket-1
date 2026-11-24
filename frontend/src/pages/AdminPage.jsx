@@ -5,24 +5,26 @@ import {
   Check,
   CheckCircle2,
   FileText,
+  LayoutDashboard,
   PackageCheck,
+  Search,
   Truck,
+  UsersRound,
   WalletCards,
   LogOut,
 } from "lucide-react";
 import AdminDigitalOrders from "../components/AdminDigitalOrders.jsx";
 import AdminOrders from "../components/AdminOrders.jsx";
-import PageTitle from "../components/PageTitle.jsx";
+import AdminAccounts from "../components/AdminAccounts.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { Cover, Empty, Status } from "../components/index.js";
 import { types } from "../data/catalog.js";
 import { apiMessage } from "../services/api.js";
 
 const sections = [
-  { id: "listings", label: "Tin đăng", icon: BookOpen },
-  { id: "orders", label: "Đơn hàng", icon: PackageCheck },
-  { id: "shipping", label: "Vận chuyển", icon: Truck },
-  { id: "digital", label: "Đơn ebook", icon: WalletCards },
+  { id: "listings", label: "Tin đăng", hint: "Sách trên sàn", group: "Nội dung", icon: BookOpen },
+  { id: "orders", label: "Đơn hàng", hint: "Sách giấy, ebook và giao hàng", group: "Giao dịch", icon: PackageCheck },
+  { id: "accounts", label: "Tài khoản", hint: "Người dùng và gian hàng", group: "Người dùng", icon: UsersRound },
 ];
 const listingFilters = [
   ["", "Tất cả"],
@@ -38,9 +40,8 @@ const statusLabels = {
 };
 const sectionDescriptions = {
   listings: "Kiểm tra và điều chỉnh khả năng hiển thị của sách trên sàn.",
-  orders: "Theo dõi các đơn COD được tạo từ nhiều người bán.",
-  shipping: "Cập nhật kết quả giao hàng trong luồng vận chuyển mô phỏng.",
-  digital: "Đối soát chuyển khoản VietQR và xác nhận đơn ebook.",
+  orders: "Theo dõi đơn sách giấy, đơn ebook và quá trình giao hàng.",
+  accounts: "Tra cứu người dùng và gian hàng của họ.",
 };
 
 export default function Admin({
@@ -52,16 +53,19 @@ export default function Admin({
   onLogout,
 }) {
   const [section, setSection] = useState("listings");
+  const [orderView, setOrderView] = useState("paper");
   const [listingStatus, setListingStatus] = useState("");
+  const [listingSearchDraft, setListingSearchDraft] = useState("");
+  const [listingSearch, setListingSearch] = useState("");
   const [busy, setBusy] = useState(false);
   const [actionId, setActionId] = useState("");
   const [loadError, setLoadError] = useState("");
 
-  async function loadListings(page = 1, status = listingStatus) {
+  async function loadListings(page = 1, status = listingStatus, search = listingSearch) {
     setBusy(true);
     setLoadError("");
     try {
-      await onPage(page, status);
+      await onPage(page, status, search);
     } catch (error) {
       setLoadError(apiMessage(error));
     } finally {
@@ -69,8 +73,15 @@ export default function Admin({
     }
   }
   useEffect(() => {
-    if (section === "listings") loadListings(1, listingStatus);
-  }, [section, listingStatus]);
+    if (section === "listings") loadListings(1, listingStatus, listingSearch);
+  }, [section, listingStatus, listingSearch]);
+
+  function submitListingSearch(event) {
+    event.preventDefault();
+    const value = listingSearchDraft.trim();
+    if (value === listingSearch) loadListings(1, listingStatus, value);
+    else setListingSearch(value);
+  }
 
   async function moderate(id, status) {
     if (actionId) return;
@@ -84,12 +95,15 @@ export default function Admin({
 
   return (
     <div className="shell page-content admin-page">
-      <div className="admin-page-topbar">
-        <PageTitle
-          eyebrow="KHU VỰC QUẢN TRỊ"
-          title="Quản trị BookMarket"
-          description="Quản lý tin đăng, đơn hàng, vận chuyển và thanh toán ebook từ một nơi."
-        />
+      <header className="admin-page-topbar">
+        <div className="admin-page-identity">
+          <span className="admin-page-mark"><LayoutDashboard size={23} aria-hidden="true" /></span>
+          <div>
+            <span className="admin-eyebrow">BOOKMARKET / QUẢN TRỊ</span>
+            <h1>Trung tâm quản trị</h1>
+            <p>Theo dõi sách, đơn hàng và thanh toán tại một nơi.</p>
+          </div>
+        </div>
         <button
           type="button"
           className="button button-outline admin-logout-button"
@@ -98,51 +112,91 @@ export default function Admin({
           <LogOut size={17} aria-hidden="true" />
           Đăng xuất
         </button>
-      </div>
-      <nav className="admin-section-nav" aria-label="Chức năng quản trị">
-        {sections.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            type="button"
-            className={section === id ? "active" : ""}
-            aria-current={section === id ? "page" : undefined}
-            onClick={() => setSection(id)}
-          >
-            <Icon size={18} aria-hidden="true" />
-            <span>{label}</span>
-          </button>
-        ))}
-      </nav>
-      <div className="admin-section-heading">
-        <div>
-          <h2>{sections.find((item) => item.id === section)?.label}</h2>
-          <p>{sectionDescriptions[section]}</p>
-        </div>
-        {section === "listings" && (
-          <div className="admin-page-summary" aria-live="polite">
-            <FileText size={18} aria-hidden="true" />
-            <span>
-              <strong>{pageData.total || 0}</strong> tin theo bộ lọc
-            </span>
+      </header>
+      <div className="admin-workspace">
+        <aside className="admin-sidebar">
+          <span className="admin-sidebar-title">DANH MỤC QUẢN LÝ</span>
+          <nav className="admin-section-nav" aria-label="Chức năng quản trị">
+            {["Nội dung", "Giao dịch", "Người dùng"].map((group) => (
+              <div className="admin-nav-group" key={group}>
+                <span className="admin-nav-group-title">{group}</span>
+                {sections.filter((item) => item.group === group).map(({ id, label, hint, icon: Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={section === id ? "active" : ""}
+                    aria-current={section === id ? "page" : undefined}
+                    onClick={() => setSection(id)}
+                  >
+                    <Icon size={19} aria-hidden="true" />
+                    <span><strong>{label}</strong><small>{hint}</small></span>
+                  </button>
+                ))}
+              </div>
+            ))}
+          </nav>
+        </aside>
+        <main className="admin-main">
+          <div className="admin-section-heading">
+            <div>
+              <span className="admin-section-kicker">{sections.find((item) => item.id === section)?.group}</span>
+              <h2>{sections.find((item) => item.id === section)?.label}</h2>
+              <p>{sectionDescriptions[section]}</p>
+            </div>
+            {section === "listings" && (
+              <div className="admin-page-summary" aria-live="polite">
+                <FileText size={18} aria-hidden="true" />
+                <span><strong>{pageData.total || 0}</strong><small>Tin theo bộ lọc</small></span>
+              </div>
+            )}
           </div>
-        )}
+          <div className="admin-content-card">
+            {section === "listings" && (
+              <ListingsPanel
+                books={books}
+                pageData={pageData}
+                status={listingStatus}
+                setStatus={setListingStatus}
+                search={listingSearch}
+                searchDraft={listingSearchDraft}
+                setSearchDraft={setListingSearchDraft}
+                onSearch={submitListingSearch}
+                onClearSearch={() => {
+                  setListingSearchDraft("");
+                  if (listingSearch) setListingSearch("");
+                }}
+                busy={busy}
+                actionId={actionId}
+                error={loadError}
+                onPage={(page) => loadListings(page, listingStatus, listingSearch)}
+                onModerate={moderate}
+              />
+            )}
+            {section === "orders" && (
+              <>
+                <div className="admin-order-tabs" role="tablist" aria-label="Loại đơn hàng">
+                  {[
+                    ["paper", "Sách giấy", BookOpen],
+                    ["digital", "Ebook", WalletCards],
+                    ["shipping", "Vận chuyển", Truck],
+                  ].map(([value, label, Icon]) => (
+                    <button type="button" key={value} role="tab"
+                      aria-selected={orderView === value}
+                      className={orderView === value ? "active" : ""}
+                      onClick={() => setOrderView(value)}>
+                      <Icon size={17} aria-hidden="true" />{label}
+                    </button>
+                  ))}
+                </div>
+                {orderView === "paper" && <AdminOrders services={services} />}
+                {orderView === "digital" && <AdminDigitalOrders />}
+                {orderView === "shipping" && <AdminOrders shipping services={services} />}
+              </>
+            )}
+            {section === "accounts" && <AdminAccounts />}
+          </div>
+        </main>
       </div>
-      {section === "listings" && (
-        <ListingsPanel
-          books={books}
-          pageData={pageData}
-          status={listingStatus}
-          setStatus={setListingStatus}
-          busy={busy}
-          actionId={actionId}
-          error={loadError}
-          onPage={(page) => loadListings(page, listingStatus)}
-          onModerate={moderate}
-        />
-      )}
-      {section === "orders" && <AdminOrders services={services} />}
-      {section === "shipping" && <AdminOrders shipping services={services} />}
-      {section === "digital" && <AdminDigitalOrders />}
     </div>
   );
 }
@@ -152,6 +206,11 @@ function ListingsPanel({
   pageData,
   status,
   setStatus,
+  search,
+  searchDraft,
+  setSearchDraft,
+  onSearch,
+  onClearSearch,
   busy,
   actionId,
   error,
@@ -160,6 +219,19 @@ function ListingsPanel({
 }) {
   return (
     <section aria-label="Quản lý tin đăng">
+      <form className="admin-search-form" onSubmit={onSearch}>
+        <label htmlFor="admin-listing-search">Tìm tin đăng</label>
+        <div className="admin-search-controls">
+          <div className="admin-search-input">
+            <Search size={17} aria-hidden="true" />
+            <input id="admin-listing-search" type="search" maxLength={200}
+              placeholder="Tên sách, tác giả, ISBN hoặc người bán"
+              value={searchDraft} onChange={(event) => setSearchDraft(event.target.value)} />
+          </div>
+          <button type="submit" className="button button-dark" disabled={busy}>Tìm kiếm</button>
+          {search && <button type="button" className="button button-outline" onClick={onClearSearch}>Xóa lọc</button>}
+        </div>
+      </form>
       <div className="admin-filter-bar">
         <span>Trạng thái</span>
         <div className="admin-filter-options">
@@ -228,7 +300,7 @@ function ListingsPanel({
         <Empty
           icon={CheckCircle2}
           title="Không có tin đăng"
-          description="Không có tin nào khớp với trạng thái đang chọn."
+          description={search ? "Không có tin nào khớp với từ khóa và trạng thái đang chọn." : "Không có tin nào khớp với trạng thái đang chọn."}
           action={null}
         />
       )}

@@ -1,0 +1,28 @@
+.voucher-page { display: grid; gap: 24px; max-width: 900px; }
+.voucher-form, .voucher-list { background: #fff; border: 1px solid #dfe8df; border-radius: 12px; padding: 24px; }
+.voucher-form h2, .voucher-list h2 { margin: 0 0 8px; font-size: 20px; }
+.voucher-form p { color: #5d6b60; margin: 0 0 20px; }
+.voucher-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+.voucher-fields label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+.voucher-fields input, .voucher-fields select, .voucher-fields textarea { width: 100%; min-height: 42px; border: 1px solid #d4ded4; border-radius: 7px; background: #fff; padding: 8px 10px; font: inherit; }
+.voucher-fields textarea { resize: vertical; }
+.voucher-recipient-modes { display: flex; gap: 8px; margin: 0 0 16px; }
+.voucher-recipient-modes button { border: 1px solid #d4ded4; background: #fff; border-radius: 7px; padding: 9px 14px; color: #285442; cursor: pointer; }
+.voucher-recipient-modes button.selected { border-color: #176447; background: #e7f2e9; font-weight: 700; }
+.voucher-recipient-field { grid-column: 1 / -1; display: grid; gap: 10px; }
+.voucher-recipient-field > label:first-child { max-width: 420px; }
+.voucher-recipient-field p { margin: 0; font-size: 13px; }
+.voucher-select-all, .voucher-buyer-list label { display: flex !important; align-items: center; gap: 10px; }
+.voucher-buyer-list { display: grid; gap: 4px; max-height: 220px; overflow-y: auto; border: 1px solid #dfe8df; border-radius: 7px; padding: 8px; }
+.voucher-buyer-list label { padding: 8px; border-radius: 5px; cursor: pointer; }
+.voucher-buyer-list label:hover { background: #f2f7f2; }
+.voucher-buyer-list span { display: grid; gap: 2px; }
+.voucher-buyer-list small { color: #657368; font-weight: 400; }
+.voucher-recipient-field input[type="checkbox"] { width: 16px; min-height: 16px; height: 16px; flex: none; }
+.voucher-card { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid #e6ece6; padding: 18px 0; }
+.voucher-card > div:first-child { display: grid; gap: 5px; }
+.voucher-card strong { color: #194b38; }
+.voucher-card small { color: #657368; }
+.voucher-code { font-weight: 700; letter-spacing: .08em; color: #bc6a30; }
+.voucher-card-actions { display: grid; justify-items: end; gap: 10px; white-space: nowrap; }
+@media (max-width: 640px) { .voucher-fields { grid-template-columns: 1fr; } .voucher-card { align-items: start; flex-direction: column; } .voucher-card-actions { justify-items: start; } }

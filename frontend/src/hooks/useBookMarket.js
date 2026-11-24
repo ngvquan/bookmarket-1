@@ -220,6 +220,7 @@ export default function useBookMarket() {
     loadMyPage,
     setPost,
     setEditing,
+    setSuccess,
     notify,
   });
   const visibleBooks = books.filter(isAvailable);

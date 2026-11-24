@@ -80,6 +80,11 @@ export default function SubOrderCard({
           {parent.receiverAddress}
         </p>
       )}
+      {mode === "seller" && (
+        <Link className="text-link" to={`/nguoi-ban/voucher?buyerId=${sub.buyerId}&order=${orderId}`}>
+          Gửi voucher cho người mua này
+        </Link>
+      )}
       {sub.items.map((item) => (
         <div className="order-item" key={item.listingId}>
           <div className="snapshot-book">
@@ -106,8 +111,9 @@ export default function SubOrderCard({
       <div className="order-footer">
         <span>
           Tiền sách {money(sub.itemsTotal)} · Giao {money(sub.shippingFee)}
+          {!!sub.discountTotal && ` · Voucher ${sub.voucherCode}: -${money(sub.discountTotal)}`}
         </span>
-        <strong>{money(sub.itemsTotal + sub.shippingFee)}</strong>
+        <strong>{money(sub.itemsTotal + sub.shippingFee - (sub.discountTotal || 0))}</strong>
       </div>
       <p>
         {service?.name || sub.shipment.service} · Mã vận đơn:{" "}

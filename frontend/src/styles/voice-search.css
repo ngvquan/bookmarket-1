@@ -1,0 +1,25 @@
+.voice-search-control { display: inline-flex; position: relative; flex: none; align-items: center; justify-content: center; }
+.voice-search-button, .commerce-header .header-search-form .voice-search-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; min-width: 36px; min-height: 36px;
+  margin: 0; padding: 0; border: 0; border-radius: 8px;
+  background: transparent; color: #275d46;
+}
+.voice-search-button:hover, .commerce-header .header-search-form .voice-search-button:hover { background: #e7f2e9; color: #164932; }
+.voice-search-button.is-listening, .commerce-header .header-search-form .voice-search-button.is-listening {
+  color: #a72f37; background: #fff0f0; box-shadow: 0 0 0 2px #f4b7ba;
+}
+.voice-search-message {
+  position: absolute; top: calc(100% + 9px); right: 0; z-index: 60;
+  width: min(280px, calc(100vw - 24px)); padding: 10px 12px;
+  background: #fff; border: 1px solid #cbdccc; border-radius: 8px;
+  box-shadow: 0 8px 24px #173d281f; color: #285442;
+  font-size: 12px; line-height: 1.5; white-space: normal;
+}
+.voice-search-message.is-error { border-color: #efb9b6; color: #a43a35; }
+.voice-search-input-wrap { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.voice-search-input-wrap > input { flex: 1; }
+@media (max-width: 760px) {
+  .commerce-header .header-search-form { grid-template-columns: 22px minmax(0, 1fr) 36px 64px; gap: 6px; }
+  .commerce-header .header-search-form .voice-search-button { width: 36px; min-width: 36px; min-height: 36px; padding: 0; }
+}

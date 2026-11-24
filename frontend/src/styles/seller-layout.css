@@ -447,6 +447,9 @@
   font-size: 12px;
   line-height: 1.9;
 }
+.seller-mobile-back {
+  display: none;
+}
 @media (min-width: 1700px) {
   .seller-workspace-content {
     padding-left: 45px;
@@ -583,6 +586,21 @@
   .seller-workspace-content {
     min-height: calc(100dvh - 145px);
     padding: 23px 16px 0;
+  }
+  .seller-mobile-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+    min-height: 38px;
+    margin-bottom: 14px;
+    padding: 0 12px;
+    border: 1px solid #d7e1da;
+    border-radius: 9px;
+    background: #fff;
+    color: #276448;
+    font-size: 11px;
+    font-weight: 650;
   }
   .seller-page-content > .page-title {
     margin-bottom: 22px;

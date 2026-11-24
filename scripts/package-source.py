@@ -1,28 +1,35 @@
 # Chi dong goi source lien quan; khong kem dependencies, build, .env hoac ZIP cu.
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
+import os
 import sys
 root=Path(__file__).resolve().parent.parent
-name=sys.argv[1] if len(sys.argv)>1 else 'BookMarket-stage2-3-light.zip'
+archive_name=sys.argv[1] if len(sys.argv)>1 else 'BookMarket-stage2-3-light.zip'
 files=[
     path
-    for path in [root/'package.json',root/'README.md',root/'.gitignore',root/'setup.bat',root/'run.bat']
+    for path in [root/'package.json',root/'README.md',root/'GUIDE.md',root/'render.yaml',root/'.gitignore',root/'setup.bat',root/'run.bat']
     if path.is_file()
 ]
 for folder in ['frontend','backend','docs','scripts']:
     directory=root/folder
-    for path in directory.rglob('*'):
-        if not path.is_file(): continue
-        rel=path.relative_to(root)
-        if any(part in {'node_modules','dist','build','test-results','.git','.gradle','.idea','.cxx','coverage','__pycache__'} for part in rel.parts): continue
-        if path.name.startswith('.env') and path.name not in {'.env.example','.env.mobile'}: continue
-        if path.name == 'local.properties': continue
-        if rel.as_posix().startswith('frontend/android/app/src/main/assets/public/'): continue
-        if path.suffix in {'.zip','.log','.apk','.aab','.jks','.keystore'}: continue
-        files.append(path)
+    skipped={'node_modules','dist','build','test-results','.git','.gradle','.idea','.cxx','coverage','__pycache__'}
+    for current,dirs,names in os.walk(directory,topdown=True,followlinks=False):
+        dirs[:]=[name for name in dirs if name not in skipped]
+        for filename in names:
+            path=Path(current)/filename
+            if not path.is_file(): continue
+            rel=path.relative_to(root)
+            if path.name.startswith('.env') and path.name not in {'.env.example','.env.mobile'}: continue
+            if path.name == 'local.properties': continue
+            if rel.as_posix().startswith('frontend/android/app/src/main/assets/public/'): continue
+            if path.suffix in {'.zip','.log','.apk','.aab','.jks','.keystore'}: continue
+            files.append(path)
+for database_file in ['README.md', 'schema.json', 'CAU_TRUC_DATABASE.md', 'DANH_SACH_FIELD.csv']:
+    path=root/'database'/database_file
+    if path.is_file(): files.append(path)
 output=root/'exports'/'source'
 output.mkdir(parents=True,exist_ok=True)
-archive=output/Path(name).name
+archive=output/Path(archive_name).name
 with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as out:
     for file in sorted(set(files)): out.write(file,'BookMarket/'+file.relative_to(root).as_posix())
 with ZipFile(archive) as out:

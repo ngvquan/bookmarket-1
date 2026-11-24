@@ -138,6 +138,7 @@ export default function useCheckout({
         quantity: item.quantity,
       })),
       services,
+      ...(form.get("voucherId") ? { voucherId: String(form.get("voucherId")) } : {}),
     };
   }
 
@@ -221,6 +222,7 @@ export default function useCheckout({
       } else if (digital.length) {
         const result = await digitalOrderService.create(
           digital.map((item) => item.id),
+          form.get("voucherId") || null,
         );
         if (result.order.status === "paid") {
           await finishDigitalOrder(result.order);

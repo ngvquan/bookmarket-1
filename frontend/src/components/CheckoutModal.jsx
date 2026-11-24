@@ -1,6 +1,7 @@
 // Modal này thu địa chỉ, dịch vụ giao hàng và xác nhận đặt đơn.
+import { useEffect, useState } from "react";
 import { BookOpen, Check } from "lucide-react";
-import { apiMessage } from "../services/api.js";
+import { apiMessage, voucherService } from "../services/api.js";
 import { money } from "../utils/format.js";
 import CheckoutAddressFields from "./CheckoutAddressFields.jsx";
 import { Modal } from "./index.js";
@@ -23,6 +24,44 @@ export default function CheckoutModal({
   setCartOpen,
   notify,
 }) {
+  const [vouchers, setVouchers] = useState([]);
+  const [voucherId, setVoucherId] = useState("");
+  const [quote, setQuote] = useState(null);
+  const [voucherError, setVoucherError] = useState("");
+  const [quoting, setQuoting] = useState(false);
+  const channel = physical ? "physical" : "digital";
+  const items = checkoutItems.map((item) => ({ listingId: item.id, quantity: item.quantity }));
+  const itemKey = JSON.stringify(items);
+  const sellerIds = new Set(checkoutItems.map((item) => item.book.sellerId));
+  const available = vouchers.filter((voucher) =>
+    voucher.status === "active" && new Date(voucher.expiresAt) > new Date() &&
+    sellerIds.has(voucher.sellerId?._id || voucher.sellerId));
+
+  useEffect(() => {
+    let cancelled = false;
+    if (profile?.role === "admin") return;
+    voucherService.mine().then((data) => {
+      if (!cancelled) setVouchers(data.items || []);
+    }).catch((error) => {
+      if (!cancelled) setVoucherError(apiMessage(error));
+    });
+    return () => { cancelled = true; };
+  }, [profile?.id]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setQuote(null);
+    setVoucherError("");
+    setQuoting(false);
+    if (!voucherId) return;
+    setQuoting(true);
+    voucherService.quote({ voucherId, channel, items: JSON.parse(itemKey) })
+      .then((data) => { if (!cancelled) setQuote(data); })
+      .catch((error) => { if (!cancelled) setVoucherError(apiMessage(error)); })
+      .finally(() => { if (!cancelled) setQuoting(false); });
+    return () => { cancelled = true; };
+  }, [voucherId, channel, itemKey]);
+
   return (
     <Modal
       title="THÊM MỘT CUỐN SÁCH, THÊM MỘT NIỀM VUI"
@@ -62,6 +101,19 @@ export default function CheckoutModal({
               </select>
             </label>
           ))}
+        <label>
+          Voucher từ người bán
+          <select name="voucherId" value={voucherId} onChange={(event) => setVoucherId(event.target.value)}>
+            <option value="">Không dùng voucher</option>
+            {available.map((voucher) => (
+              <option key={voucher._id} value={voucher._id}>
+                {voucher.code} · {voucher.sellerId?.name || "Người bán"} · {voucher.kind === "percent" ? `${voucher.value}%` : money(voucher.value)}
+              </option>
+            ))}
+          </select>
+        </label>
+        {quoting && <p role="status">Đang kiểm tra voucher…</p>}
+        {voucherError && <p role="alert" className="danger-text">{voucherError}</p>}
         <div className="checkout-summary">
           {checkoutItems.map((item) => (
             <span key={item.id}>
@@ -75,9 +127,15 @@ export default function CheckoutModal({
               <strong>{money(shippingTotal)}</strong>
             </span>
           )}
+          {!!quote?.discount && (
+            <span>
+              Giảm giá · {quote.code}
+              <strong>-{money(quote.discount)}</strong>
+            </span>
+          )}
           <div>
             Tổng thanh toán
-            <strong>{money(checkoutTotal + shippingTotal)}</strong>
+            <strong>{money(Math.max(0, checkoutTotal + shippingTotal - (quote?.discount || 0)))}</strong>
           </div>
         </div>
         {checkoutError && (
@@ -104,7 +162,7 @@ export default function CheckoutModal({
         <button
           className="button button-dark full-width"
           type="submit"
-          disabled={submitting}
+          disabled={submitting || (voucherId && (!quote || quoting))}
         >
           {submitting
             ? "Đang đặt hàng…"

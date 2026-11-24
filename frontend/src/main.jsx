@@ -11,6 +11,10 @@ import "./styles/seller-layout.css";
 import "./styles/chat.css";
 import "./styles/shop-registration.css";
 import "./styles/mobile-app.css";
+import "./styles/ai-assistant.css";
+import "./styles/voice-search.css";
+import "./styles/admin.css";
+import "./styles/reader.css";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <ErrorBoundary>

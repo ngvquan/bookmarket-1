@@ -12,6 +12,7 @@ import {
 } from "./http.js";
 
 export { api, apiMessage, getToken, saveToken } from "./http.js";
+export { apiBaseUrl } from "./http.js";
 
 // Bìa mẫu thuộc frontend; đánh giá thật được lấy riêng từ /reviews.
 function presentListing(listing) {
@@ -60,8 +61,8 @@ export const reviewService = {
   },
 };
 export const digitalOrderService = {
-  create(listingIds) {
-    return api("/digital-orders", { method: "POST", body: { listingIds } });
+  create(listingIds, voucherId = null) {
+    return api("/digital-orders", { method: "POST", body: { listingIds, ...(voucherId ? { voucherId } : {}) } });
   },
   status(id) {
     return api(`/digital-orders/${encodeURIComponent(id)}/status`);
@@ -89,6 +90,29 @@ export const digitalOrderService = {
       method: "PATCH",
       body,
     });
+  },
+};
+export const voucherService = {
+  mine() {
+    return api("/vouchers/mine");
+  },
+  seller() {
+    return api("/vouchers/seller");
+  },
+  buyers() {
+    return api("/vouchers/seller/buyers");
+  },
+  create(body) {
+    return api("/vouchers/seller", { method: "POST", body });
+  },
+  createBulk(body) {
+    return api("/vouchers/seller/bulk", { method: "POST", body });
+  },
+  revoke(id) {
+    return api(`/vouchers/seller/${encodeURIComponent(id)}/revoke`, { method: "PATCH" });
+  },
+  quote(body) {
+    return api("/vouchers/quote", { method: "POST", body });
   },
 };
 export const chatService = {
@@ -216,6 +240,15 @@ export const notificationService = {
   },
   readAll() {
     return api("/notifications/read-all", { method: "PATCH" });
+  },
+};
+export const aiService = {
+  chat(messages) {
+    return api("/ai/chat", {
+      method: "POST",
+      body: { messages },
+      _baseUrl: import.meta.env.VITE_AI_URL || undefined,
+    });
   },
 };
 export const listingService = {
@@ -421,6 +454,11 @@ export const adminOrderService = {
         body: { status, note },
       })
     ).subOrder;
+  },
+};
+export const adminAccountService = {
+  list(params = {}) {
+    return api("/admin/accounts?" + new URLSearchParams(params));
   },
 };
 export const shippingService = {

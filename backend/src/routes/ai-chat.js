@@ -6,7 +6,11 @@ import { normalize } from "../utils/text.js";
 import {
   answerChat,
   chatRecommendations,
+  detectPriceExtreme,
   findChatCatalog,
+  findPriceExtreme,
+  priceExtremeAnswer,
+  verifyChatCatalog,
   wantsCatalog,
   readChatMessages,
 } from "../utils/ai-chat.js";
@@ -120,13 +124,58 @@ router.post("/chat", optionalUser, async (req, res, next) => {
       const answer = req.user ? await ownOrderAnswer(req.user.id) : await remoteOwnOrderAnswer(req.headers.authorization);
       return res.json({ message: answer, source: "verified", recommendations: [] });
     }
+    if (/\b(voucher|ma giam gia|khuyen mai|uu dai|giam gia)\b/.test(normalizedQuestion)) {
+      return res.json({
+        message: "Mình chưa tra cứu được mã giảm giá riêng của bạn trong cuộc trò chuyện này. Bạn đăng nhập và mở mục Voucher để xem mã đã nhận, điều kiện và hạn dùng nhé.",
+        source: "verified",
+        recommendations: [],
+      });
+    }
     const policy = policyForQuestion(question);
     if (policy) {
       const contact = /khieu nai|hoan tien|nhan vien|lien he/i.test(question.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
       return res.json({ message: policies[policy] + (contact && policy !== "support" ? ` ${policies.support}` : ""), source: "verified", recommendations: [] });
     }
+    const extreme = detectPriceExtreme(question);
+    if (extreme) {
+      try {
+        const item = await findPriceExtreme(question, extreme);
+        return res.json({
+          message: priceExtremeAnswer(item, extreme),
+          source: "verified",
+          recommendations: item ? chatRecommendations([item]) : [],
+        });
+      } catch (catalogError) {
+        console.error("AI price lookup unavailable:", catalogError.message);
+        return res.json({
+          message: "Mình chưa kiểm tra được giá sách mới nhất. Bạn thử lại sau ít phút nhé.",
+          source: "verified",
+          recommendations: [],
+        });
+      }
+    }
     const search = wantsCatalog(messages);
-    const catalog = search ? await findChatCatalog(search) : null;
+    let catalog = search ? await findChatCatalog(search) : null;
+    const hasRemoteCatalog = Boolean(process.env.AI_CATALOG_API_URL?.trim() || process.env.AI_ACCOUNT_API_URL?.trim());
+    if (search && hasRemoteCatalog) {
+      if (!catalog.length) {
+        return res.json({
+          message: "Mình chưa tìm thấy cuốn nào phù hợp. Bạn thử cho mình tên sách, tác giả hoặc thể loại cụ thể hơn nhé.",
+          source: "verified",
+          recommendations: [],
+        });
+      }
+      try {
+        catalog = await verifyChatCatalog(catalog, search);
+      } catch (catalogError) {
+        console.error("AI catalog verification unavailable:", catalogError.message);
+        return res.json({
+          message: "Mình chưa kiểm tra được thông tin sách mới nhất. Bạn thử lại sau ít phút nhé.",
+          source: "verified",
+          recommendations: [],
+        });
+      }
+    }
     const answer = await answerChat(messages, catalog);
     res.json({
       ...answer,

@@ -3,7 +3,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "api-foundation.spec.js",
+  testMatch: ["api-foundation.spec.js", "ai-assistant.spec.js", "voice-search.spec.js"],
   timeout: 45000,
   fullyParallel: false,
   workers: 1,

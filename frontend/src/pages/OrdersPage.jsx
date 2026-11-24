@@ -133,7 +133,7 @@ export default function OrdersPage({ profile, onPay, services }) {
         {items.map((order) => {
           // Khi lọc đơn nhiều shop, chỉ cộng các phần đơn đang hiển thị.
           const visibleTotal = order.subOrders.reduce(
-            (sum, sub) => sum + sub.itemsTotal + sub.shippingFee,
+            (sum, sub) => sum + sub.itemsTotal + sub.shippingFee - (sub.discountTotal || 0),
             0,
           );
           return (

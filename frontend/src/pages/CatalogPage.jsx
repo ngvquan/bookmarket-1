@@ -1,6 +1,6 @@
 // Đọc bộ lọc từ URL và lấy đúng một trang kết quả từ API.
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Search,
   X,
@@ -11,6 +11,7 @@ import {
 import { categories } from "../data/catalog.js";
 import useCatalogSearch from "../hooks/useCatalogSearch.js";
 import CatalogResults from "../components/CatalogResults.jsx";
+import VoiceSearchButton from "../components/VoiceSearchButton.jsx";
 export default function Catalog({
   type,
   info,
@@ -21,6 +22,7 @@ export default function Catalog({
   onPost,
   onResults,
 }) {
+  const navigate = useNavigate();
   const [view, setView] = useState("grid");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const {
@@ -65,22 +67,43 @@ export default function Catalog({
             </Link>
           )}
         </div>
-        {["physical", "all"].includes(type) && (
+        {["physical", "all", "digital"].includes(type) && (
           <div
             className="recommendation-tabs purchase-type-tabs"
             role="group"
-            aria-label="Lọc sách mới hoặc cũ"
+            aria-label="Lọc theo loại sách"
           >
             {[
               ["", "Tất cả sách"],
               ["new", "Sách mới"],
               ["used", "Sách cũ"],
+              ["digital", "Sách điện tử"],
             ].map(([value, label]) => (
               <button
                 key={value}
-                className={(params.get("type") || "") === value ? "active" : ""}
-                aria-pressed={(params.get("type") || "") === value}
-                onClick={() => update("type", value)}
+                className={
+                  (value === "digital"
+                    ? type === "digital"
+                    : type !== "digital" &&
+                      (params.get("type") || "") === value)
+                    ? "active"
+                    : ""
+                }
+                aria-pressed={
+                  value === "digital"
+                    ? type === "digital"
+                    : type !== "digital" &&
+                      (params.get("type") || "") === value
+                }
+                onClick={() => {
+                  if (value === "digital") {
+                    navigate("/digital");
+                  } else if (type === "digital") {
+                    navigate(value ? `/mua-sach?type=${value}` : "/mua-sach");
+                  } else {
+                    update("type", value);
+                  }
+                }}
               >
                 {label}
               </button>
@@ -97,6 +120,7 @@ export default function Catalog({
               onChange={(event) => update("q", event.target.value)}
               placeholder="Tên sách, tác giả, ISBN hoặc nhà bán..."
             />
+            <VoiceSearchButton onTranscript={(transcript) => update("q", transcript)} />
             {params.get("q") && (
               <button
                 className="icon-button"

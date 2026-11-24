@@ -9,6 +9,7 @@ export default function useListingEditor({
   loadMyPage,
   setPost,
   setEditing,
+  setSuccess,
   notify,
 }) {
   async function saveBook(event) {
@@ -34,12 +35,14 @@ export default function useListingEditor({
       publisher: form.get("publisher")?.trim() || "",
       year: Number(form.get("year")) || undefined,
       price: Number(form.get("price")),
-      stock: type === "new" ? Number(form.get("stock")) : undefined,
+      // Mỗi tin sách mới bắt đầu với một cuốn; khi sửa giữ tồn kho hiện có.
+      stock: type === "new" && editing?.type !== "new" ? 1 : undefined,
       style: editing?.style || "peace",
       coverTitle: title,
     };
 
     let saved;
+    const wasEditing = Boolean(editing);
     try {
       saved = await saveListing(draft, editing?.id);
       for (const image of images) {
@@ -49,22 +52,32 @@ export default function useListingEditor({
         saved = await listingService.uploadEbook(saved.id, ebook);
       }
       rememberListings([saved]);
-      await loadMyPage(1);
+      try {
+        await loadMyPage(1);
+      } catch {
+        notify("Sách đã được lưu. Hãy tải lại trang để cập nhật danh sách.");
+      }
       setPost(null);
       setEditing(null);
-      notify(
-        type === "digital" ? "Đã lưu ebook và file PDF." : "Đã lưu tin đăng.",
-      );
+      setSuccess({
+        title: wasEditing ? "Đã cập nhật sách" : "Đăng sách thành công!",
+        text: saved.status === "approved"
+          ? `“${title}” đã hiển thị trên BookMarket. Bạn có thể xem và quản lý sách trong mục Sản phẩm.`
+          : `“${title}” đã được lưu nhưng chưa công khai. Xem trạng thái trong mục Sản phẩm.`,
+        action: "Xem sách của tôi",
+        to: "/nguoi-ban/san-pham",
+      });
     } catch (error) {
       if (saved) {
         setEditing(saved);
       }
-      notify(
-        saved
-          ? `Đã lưu thông tin nhưng tải tệp chưa xong: ${apiMessage(error)}`
-          : apiMessage(error),
-      );
+      const message = saved
+        ? `Đã lưu thông tin nhưng tải tệp chưa xong: ${apiMessage(error)}`
+        : apiMessage(error);
+      notify(message);
+      return { error: message };
     }
+    return { success: true };
   }
 
   return saveBook;

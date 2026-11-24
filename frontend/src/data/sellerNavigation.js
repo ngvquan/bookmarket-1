@@ -15,6 +15,13 @@ export const sellerSections = [
     description: "Xác nhận đơn, giao sách và theo dõi đơn do bạn bán.",
   },
   {
+    id: "vouchers",
+    path: "/nguoi-ban/voucher",
+    label: "Voucher",
+    title: "Voucher cho người mua",
+    description: "Tạo ưu đãi và gửi trực tiếp đến tài khoản người mua.",
+  },
+  {
     id: "reviews",
     path: "/nguoi-ban/danh-gia",
     label: "Đánh giá",

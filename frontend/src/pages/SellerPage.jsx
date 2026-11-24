@@ -14,6 +14,7 @@ import PageTitle from "../components/PageTitle.jsx";
 import { Plus } from "lucide-react";
 import { Eye, EyeOff } from "lucide-react";
 import SellerReviews from "../components/SellerReviews.jsx";
+import VoucherPage from "./VoucherPage.jsx";
 export default function Seller({
   books,
   shop,
@@ -74,7 +75,7 @@ export default function Seller({
         title={tab === "shop" && shop ? shop.name : section.title}
         description={section.description}
       >
-        {profile && (
+        {profile && tab === "products" && (
           <button
             className="button button-dark"
             onClick={() =>
@@ -204,6 +205,7 @@ export default function Seller({
         )}
         {tab === "orders" && <ShopOrders services={services} />}
         {tab === "reviews" && <SellerReviews />}
+        {tab === "vouchers" && <VoucherPage seller profile={profile} />}
         {tab === "shop" && (
           <ShopSettingsForm
             key={shop.id}

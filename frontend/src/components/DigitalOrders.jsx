@@ -79,6 +79,9 @@ export default function DigitalOrders({ tab, onPay, onCounts }) {
                 <strong>{money(item.price)}</strong>
               </div>
             ))}
+            {!!order.discountTotal && (
+              <p className="info-box">Voucher {order.voucherCode}: giảm {money(order.discountTotal)}</p>
+            )}
             <div className="order-footer">
               <span>
                 Mã chuyển khoản: <strong>{order.transferCode}</strong>

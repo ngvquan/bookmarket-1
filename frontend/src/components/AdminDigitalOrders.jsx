@@ -44,9 +44,11 @@ export default function AdminDigitalOrders() {
   }, [bankPage, revision]);
   return (
     <section className="admin-digital-orders">
-      <h2>Đơn ebook</h2>
       <section className="unmatched-transactions">
-        <h3>Giao dịch chưa khớp</h3>
+        <div className="admin-subsection-heading">
+          <h3>Giao dịch chưa khớp</h3>
+          <p>Kiểm tra các khoản chuyển tiền chưa gắn được với đơn ebook.</p>
+        </div>
         {bankData.items.map((item) => (
           <article className="order-card" key={item._id}>
             <strong>{item.transactionId}</strong>
@@ -61,6 +63,10 @@ export default function AdminDigitalOrders() {
         {!bankData.items.length && <p>Không có giao dịch chưa khớp.</p>}
         <Pagination data={bankData} onPage={setBankPage} />
       </section>
+      <div className="admin-subsection-heading">
+        <h3>Danh sách đơn ebook</h3>
+        <p>Lọc theo trạng thái để xử lý và đối soát đơn.</p>
+      </div>
       <label className="order-filter">
         Trạng thái ebook
         <select
@@ -109,6 +115,7 @@ const reasonLabels = {
   not_enough: "Chưa đủ tiền",
   wrong_account: "Sai tài khoản nhận",
   order_cancelled: "Đơn đã hủy",
+  voucher_unavailable: "Voucher đã dùng ở đơn khác; cần đối soát",
   outgoing: "Giao dịch tiền ra",
 };
 function ManualPayment({ order, transactions, onSaved }) {

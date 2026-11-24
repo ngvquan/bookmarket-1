@@ -28,6 +28,7 @@ import Catalog from "./pages/CatalogPage.jsx";
 import SearchPanel from "./components/SearchPanel.jsx";
 import PaymentModal from "./components/PaymentModal.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import VoucherPage from "./pages/VoucherPage.jsx";
 import NotificationsPage from "./pages/NotificationsPage.jsx";
 import useNotifications from "./hooks/useNotifications.js";
 import { SellerDirectory } from "./pages/SellerDirectoryPage.jsx";
@@ -37,6 +38,7 @@ import CartModal from "./components/CartModal.jsx";
 import CheckoutModal from "./components/CheckoutModal.jsx";
 import AdminLogin from "./components/AdminLogin.jsx";
 import BottomNav from "./components/BottomNav.jsx";
+import AiAssistant from "./components/AiAssistant.jsx";
 export default function App() {
   const {
     loading,
@@ -365,6 +367,14 @@ export default function App() {
             }
           />
           <Route
+            path="/voucher"
+            element={
+              <AccessGate profile={profile} onLogin={() => setAuth(true)}>
+                <VoucherPage key={profile?.id} profile={profile} />
+              </AccessGate>
+            }
+          />
+          <Route
             path="/thong-bao"
             element={
               <AccessGate profile={profile} onLogin={() => setAuth(true)}>
@@ -575,6 +585,7 @@ export default function App() {
           onCart={() => setCartOpen(true)}
         />
       )}
+      {!sellerArea && !adminArea && <AiAssistant onOpenBook={openBook} onAddToCart={addToCart} />}
       {toast && (
         <div className="toast" role="status">
           <CheckCircle2 size={19} />

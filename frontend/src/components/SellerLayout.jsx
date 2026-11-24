@@ -14,6 +14,7 @@ import {
   MessageCircle,
   Star,
   Bell,
+  TicketPercent,
 } from "lucide-react";
 import { sellerSections } from "../data/sellerNavigation.js";
 import { sellerUrl } from "../utils/marketplace.js";
@@ -24,6 +25,7 @@ const icons = {
   shop: Store,
   chat: MessageCircle,
   reviews: Star,
+  vouchers: TicketPercent,
 };
 export default function SellerLayout({
   profile,
@@ -250,6 +252,10 @@ export default function SellerLayout({
             </div>
           </aside>
           <main id="main" className="seller-workspace-content">
+            <Link className="seller-mobile-back" to="/ho-so">
+              <ArrowLeft size={17} />
+              Quay lại hồ sơ
+            </Link>
             {children}
             <footer className="seller-workspace-footer">
               <span>© 2026 BookMarket</span>

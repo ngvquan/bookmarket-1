@@ -1,12 +1,18 @@
 // Form tìm kiếm tạo URL để chia sẻ tên sách, tác giả và ISBN đang tìm.
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useRef } from "react";
 import { ArrowRight, Search } from "lucide-react";
+import { categories } from "../data/catalog.js";
 import PriceRange from "./PriceRange.jsx";
+import VoiceSearchButton from "./VoiceSearchButton.jsx";
 export default function SearchPanel({ advanced = false }) {
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const formRef = useRef(null);
+  const queryInput = useRef(null);
   return (
     <form
+      ref={formRef}
       className={`edition-search ${advanced ? "edition-search-advanced" : ""}`}
       onSubmit={(event) => {
         event.preventDefault();
@@ -37,11 +43,18 @@ export default function SearchPanel({ advanced = false }) {
         </label>
         <label>
           ISBN hoặc từ khóa
-          <input
-            name="q"
-            defaultValue={params.get("q") || ""}
-            placeholder="Nhập ISBN hoặc từ khóa"
-          />
+          <span className="voice-search-input-wrap">
+            <input
+              ref={queryInput}
+              name="q"
+              defaultValue={params.get("q") || ""}
+              placeholder="Nhập ISBN hoặc từ khóa"
+            />
+            <VoiceSearchButton onTranscript={(transcript) => {
+              if (queryInput.current) queryInput.current.value = transcript;
+              formRef.current?.requestSubmit();
+            }} />
+          </span>
         </label>
         {advanced && (
           <>
@@ -57,6 +70,20 @@ export default function SearchPanel({ advanced = false }) {
                 defaultValue={params.get("publisher") || ""}
                 placeholder="Tên nhà xuất bản"
               />
+            </label>
+            <label>
+              Thể loại
+              <select
+                name="category"
+                defaultValue={params.get("category") || ""}
+              >
+                <option value="">Tất cả thể loại</option>
+                {categories.slice(1).map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
             </label>
             <label>
               Tình trạng

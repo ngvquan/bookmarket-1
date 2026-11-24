@@ -7,10 +7,12 @@ import {
   answerChat,
   chatRecommendations,
   cleanModelReply,
+  detectPriceExtreme,
   detectMaximumPrice,
   findChatCatalog,
   wantsCatalog,
   readChatMessages,
+  verifyChatCatalog,
 } from "../src/utils/ai-chat.js";
 
 const catalog = [
@@ -40,6 +42,7 @@ afterEach(() => {
   delete process.env.OPENAI_API_KEY;
   delete process.env.OPENAI_MODEL;
   delete process.env.AI_ACCOUNT_API_URL;
+  delete process.env.AI_CATALOG_API_URL;
 });
 
 describe("chatbot BookMarket", () => {
@@ -67,6 +70,16 @@ describe("chatbot BookMarket", () => {
       .send({ messages: [{ role: "user", content: "Chính sách đổi trả" }] });
     expect(response.status).toBe(200);
     expect(response.body.source).toBe("verified");
+  });
+
+  it("không tự bịa mã giảm giá khi chat chưa tra được voucher riêng", async () => {
+    const response = await request(app).post("/ai/chat").send({
+      messages: [{ role: "user", content: "Tôi có mã giảm giá nào?" }],
+    });
+    expect(response.status).toBe(200);
+    expect(response.body.source).toBe("verified");
+    expect(response.body.message).toContain("chưa tra cứu được mã giảm giá");
+    expect(response.body.recommendations).toEqual([]);
   });
 
   it("tra đơn từ backend đăng nhập chỉ bằng token và API đọc đơn của chính khách", async () => {
@@ -110,6 +123,53 @@ describe("chatbot BookMarket", () => {
     expect(wantsCatalog([{ role: "user", content: "Tìm ebook văn học" }])).toBe("Tìm ebook văn học");
     expect(wantsCatalog([{ role: "user", content: "Sách giấy dưới 100k" }])).toBe("Sách giấy dưới 100k");
     expect(wantsCatalog([{ role: "user", content: "Sách giúp bé tự tin" }])).toBe("Sách giúp bé tự tin");
+    expect(wantsCatalog([{ role: "user", content: "Tóm tắt cuốn sách này" }])).toBe("Tóm tắt cuốn sách này");
+  });
+
+  it("trả lời sách đắt nhất từ catalog đang phục vụ web", async () => {
+    process.env.AI_CATALOG_API_URL = "https://market.example";
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ items: [{
+        id: "expensive-book", title: "Nhà đầu tư thông minh",
+        author: "Benjamin Graham", price: 265000, type: "new",
+        category: "Kinh tế", imageIds: [],
+      }] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    expect(detectPriceExtreme("Cuốn sách đắt nhất là gì?")).toBe("highest");
+    const response = await request(app).post("/ai/chat").send({
+      messages: [{ role: "user", content: "Cuốn sách đắt nhất là gì?" }],
+    });
+    expect(response.status).toBe(200);
+    expect(response.body.message).toContain("265.000₫");
+    expect(response.body.message).toContain("Nhà đầu tư thông minh");
+    expect(response.body.recommendations[0].id).toBe("expensive-book");
+    const url = fetchMock.mock.calls[0][0];
+    expect(url.searchParams.get("sort")).toBe("price-down");
+    expect(url.searchParams.get("limit")).toBe("1");
+  });
+
+  it("lọc ebook rẻ nhất trước khi trả lời", async () => {
+    process.env.AI_CATALOG_API_URL = "https://market.example";
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ items: [{
+        id: "cheap-ebook", title: "Sách điện tử mẫu",
+        author: "BookMarket", price: 2000, type: "digital",
+      }] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await request(app).post("/ai/chat").send({
+      messages: [{ role: "user", content: "Ebook rẻ nhất là cuốn nào?" }],
+    });
+    expect(response.status).toBe(200);
+    expect(response.body.message).toContain("2.000₫");
+    const url = fetchMock.mock.calls[0][0];
+    expect(url.searchParams.get("type")).toBe("digital");
+    expect(url.searchParams.get("sort")).toBe("price-up");
   });
 
   it("hiểu ngân sách viết bằng nghìn hoặc k", () => {
@@ -130,22 +190,54 @@ describe("chatbot BookMarket", () => {
     }));
   });
 
+  it("xác minh tin sách với API web và lấy giá mới thay vì giá local cũ", async () => {
+    process.env.AI_CATALOG_API_URL = "https://market.example";
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ listing: {
+        ...catalog[0], price: 45000, status: "approved", stock: 1,
+      } }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const verified = await verifyChatCatalog(catalog);
+    expect(verified).toHaveLength(1);
+    expect(verified[0].price).toBe(45000);
+    expect(String(fetchMock.mock.calls[0][0])).toContain("/listings/book-1");
+  });
+
+  it("không gợi ý tin đã biến mất khỏi API web", async () => {
+    process.env.AI_CATALOG_API_URL = "https://market.example";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ status: 404, ok: false }));
+    expect(await verifyChatCatalog(catalog)).toEqual([]);
+  });
+
+  it("lọc lại giá và loại sách sau khi lấy tin mới từ API web", async () => {
+    process.env.AI_CATALOG_API_URL = "https://market.example";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ listing: {
+        ...catalog[0], price: 120000, status: "approved", stock: 1,
+      } }),
+    }));
+    expect(await verifyChatCatalog(catalog, "Sách dưới 100k")).toEqual([]);
+  });
+
   it("loại suy nghĩ ẩn và giá do model tự viết", () => {
     expect(cleanModelReply("<think>lý luận nội bộ</think>Mình sẽ tìm giúp bạn.", catalog)).toBe("Mình sẽ tìm giúp bạn.");
     expect(cleanModelReply("Cuốn này giá 99.000đ", catalog)).toBe("");
     expect(cleanModelReply("Thử đọc “Tên sách không có thật” nhé.", catalog)).toBe("");
   });
 
-  it("thử lại Ollama một lần rồi dùng catalog khi AI lỗi", async () => {
+  it("thử lại Ollama một lần rồi báo lỗi khi AI không phản hồi", async () => {
     process.env.AI_PROVIDER = "ollama";
     process.env.OLLAMA_MODEL = "qwen3:1.7b";
     const fetchMock = vi.fn().mockRejectedValue(new Error("offline"));
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     vi.stubGlobal("fetch", fetchMock);
-    const result = await answerChat([{ role: "user", content: "Gợi ý sách" }], catalog);
+    const result = await answerChat([{ role: "user", content: "Hỏi tôi từng câu để hiểu sở thích" }], null);
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(result.source).toBe("catalog");
-    expect(result.message).toContain("Nhà giả kim");
+    expect(result.message).toContain("chưa trả lời được lúc này");
     errorSpy.mockRestore();
   });
 
@@ -161,7 +253,7 @@ describe("chatbot BookMarket", () => {
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     vi.stubGlobal("fetch", fetchMock);
 
-    const result = await answerChat([{ role: "user", content: "Gợi ý sách" }], catalog);
+    const result = await answerChat([{ role: "user", content: "Hỏi tôi từng câu để hiểu sở thích" }], null);
 
     expect(result.source).toBe("ai");
     expect(result.provider).toBe("ollama");
@@ -194,8 +286,8 @@ describe("chatbot BookMarket", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     const result = await answerChat(
-      [{ role: "user", content: "Giới thiệu sách này" }],
-      catalog,
+      [{ role: "user", content: "Hãy hỏi tôi về sở thích đọc sách" }],
+      null,
     );
 
     expect(result).toEqual({
@@ -210,7 +302,7 @@ describe("chatbot BookMarket", () => {
     const request = JSON.parse(fetchMock.mock.calls[0][1].body);
     expect(request.model).toBe("test-model");
     expect(request.store).toBe(false);
-    expect(request.input.at(-1).content).toContain("Nhà giả kim");
+    expect(request.input.at(-1).content).toContain("Hãy hỏi tôi về sở thích đọc sách");
   });
 
   it("gọi Qwen3 qua Ollama local mà không cần API key", async () => {
@@ -225,8 +317,8 @@ describe("chatbot BookMarket", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     const result = await answerChat(
-      [{ role: "user", content: "Gợi ý một cuốn sách" }],
-      catalog,
+      [{ role: "user", content: "Hãy hỏi tôi về sở thích đọc sách" }],
+      null,
     );
 
     expect(result).toEqual({
@@ -240,8 +332,28 @@ describe("chatbot BookMarket", () => {
       model: "qwen3:1.7b",
       stream: false,
       think: false,
-      options: expect.objectContaining({ num_ctx: 1536, num_gpu: 0 }),
+      options: expect.objectContaining({ num_ctx: 1536, num_gpu: 0, temperature: 0 }),
     });
-    expect(request.messages.at(-1).content).toContain("Một hành trình đi tìm kho báu");
+    expect(request.messages[0].content).toContain("đừng tự thêm câu hỏi");
+    expect(request.messages.at(-1).content).toContain("Hãy hỏi tôi về sở thích đọc sách");
+  });
+
+  it("trả thông tin catalog đã xác minh mà không gọi mô hình hoặc thêm câu hỏi", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await answerChat([{ role: "user", content: "Sách dưới 100k" }], catalog);
+    expect(result.source).toBe("catalog");
+    expect(result.message).toContain("Nhà giả kim");
+    expect(result.message).toContain("42.000₫");
+    expect(result.message).not.toContain("?");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("diễn đạt gợi ý theo yêu cầu của khách và tránh từ kỹ thuật", async () => {
+    const items = [catalog[0], { ...catalog[0], id: "book-2", title: "Hoàng tử bé", price: 28000 }];
+    const result = await answerChat([{ role: "user", content: "Sách dưới 100k" }], items);
+    expect(result.message).toContain("Trong tầm giá 100.000₫");
+    expect(result.message).toContain("Hoàng tử bé");
+    expect(result.message).not.toMatch(/catalog|lựa chọn trong BookMarket/i);
   });
 });

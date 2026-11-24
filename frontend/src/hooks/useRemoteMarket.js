@@ -63,16 +63,18 @@ export default function useRemoteMarket() {
     setMyPage(data);
     rememberListings(data.items);
   }
-  async function loadAdminPage(page = 1, status = "") {
+  async function loadAdminPage(page = 1, status = "", search = "") {
     const data = await listingService.search({
       scope: "all",
       page,
       limit: 10,
       status,
+      q: search,
     });
     setAdminPage({
       ...data,
       status,
+      search,
     });
     rememberListings(data.items);
   }
@@ -135,7 +137,6 @@ export default function useRemoteMarket() {
   async function saveListing(book, id) {
     const result = await listingService.save(book, id);
     rememberListings([result]);
-    await loadMyPage(1);
     return result;
   }
   async function deleteListing(id) {
@@ -156,7 +157,7 @@ export default function useRemoteMarket() {
   async function moderateListing(id, status) {
     const result = await listingService.moderate(id, status);
     rememberListings([result]);
-    await loadAdminPage(adminPage.page, adminPage.status);
+    await loadAdminPage(adminPage.page, adminPage.status, adminPage.search);
   }
   return {
     books,

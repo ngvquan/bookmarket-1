@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { MapPin, Pencil, Plus, Trash2, UserRound } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Mail,
+  MapPin,
+  Pencil,
+  Plus,
+  Store,
+  Trash2,
+  UserRound,
+} from "lucide-react";
 import PageTitle from "../components/PageTitle.jsx";
 import { apiMessage, profileService } from "../services/api.js";
 
@@ -51,16 +61,43 @@ export default function ProfilePage({ profile, setProfile, notify }) {
     }
   }
   const addresses = profile.addresses || [];
+  const initials = profile.name
+    .split(" ")
+    .filter(Boolean)
+    .slice(-2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
   return (
     <div className="shell page-content profile-page">
+      <div className="profile-hero">
+        <div className="profile-identity">
+          <span className="profile-avatar" aria-hidden="true">{initials || "BM"}</span>
+          <div>
+            <span className="eyebrow">TÀI KHOẢN CỦA BẠN</span>
+            <h1>{profile.name}</h1>
+            <span className="profile-email"><Mail size={15} />{profile.email}</span>
+          </div>
+        </div>
+        <Link
+          className="profile-bookshop-link"
+          to={profile.shop ? "/nguoi-ban" : "/dang-ky-rap-sach"}
+        >
+          <span className="profile-bookshop-icon"><Store size={22} /></span>
+          <span>
+            <strong>Rạp sách của tôi</strong>
+            <small>{profile.shop ? "Quản lý sách và đơn hàng" : "Bắt đầu mở rạp sách riêng"}</small>
+          </span>
+          <ArrowRight size={19} />
+        </Link>
+      </div>
       <PageTitle
-        eyebrow="TÀI KHOẢN CỦA BẠN"
         title="Hồ sơ cá nhân"
-        description="Cập nhật tên và các địa chỉ dùng khi đặt sách."
+        description="Quản lý thông tin tài khoản và địa chỉ nhận sách của bạn."
       />
       <section className="profile-panel">
         <div className="profile-section-title">
-          <UserRound size={20} />
+          <span className="profile-section-icon"><UserRound size={20} /></span>
           <div>
             <h2>Thông tin tài khoản</h2>
             <p>Email không thể thay đổi trong phiên bản hiện tại.</p>
@@ -88,7 +125,7 @@ export default function ProfilePage({ profile, setProfile, notify }) {
       <section className="profile-panel">
         <div className="profile-address-heading">
           <div className="profile-section-title">
-            <MapPin size={20} />
+            <span className="profile-section-icon"><MapPin size={20} /></span>
             <div>
               <h2>Địa chỉ nhận hàng</h2>
               <p>Đã lưu {addresses.length}/3 địa chỉ.</p>

@@ -22,6 +22,8 @@ export default function PostForm({ type, editing, shop, onClose, onSubmit }) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [fileError, setFileError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const needsShop =
     ["new", "digital"].includes(selectedType) && !shop?.isRegistrationComplete;
   const changeMetadata = (name, value) => {
@@ -133,14 +135,24 @@ export default function PostForm({ type, editing, shop, onClose, onSubmit }) {
       setFileError(apiMessage(error));
     }
   }
-  function submit(event) {
+  async function submit(event) {
+    event.preventDefault();
+    if (submitting) return;
     if (selectedType === "digital" && !editing?.hasEbook && !selectedPdf) {
-      event.preventDefault();
       setFileError("Hãy chọn file PDF trước khi đăng ebook.");
       return;
     }
     setFileError("");
-    onSubmit(event);
+    setSubmitError("");
+    setSubmitting(true);
+    try {
+      const result = await onSubmit(event);
+      if (result?.error) setSubmitError(result.error);
+    } catch (error) {
+      setSubmitError(apiMessage(error));
+    } finally {
+      setSubmitting(false);
+    }
   }
   return (
     <Modal
@@ -318,20 +330,6 @@ export default function PostForm({ type, editing, shop, onClose, onSubmit }) {
                   defaultValue={editing?.price ?? 45000}
                 />
               </label>
-              {selectedType === "new" && (
-                <label>
-                  Số lượng
-                  <input
-                    name="stock"
-                    type="number"
-                    min="0"
-                    max="100000"
-                    step="1"
-                    required
-                    defaultValue={editing?.stock ?? 1}
-                  />
-                </label>
-              )}
             </div>
             <label>
               Một vài dòng về cuốn sách
@@ -397,12 +395,14 @@ export default function PostForm({ type, editing, shop, onClose, onSubmit }) {
                 {fileError}
               </p>
             )}
+            {submitError && <p className="danger-text" role="alert">{submitError}</p>}
+            {submitting && <p role="status">Đang lưu sách và tải tệp lên…</p>}
             <p className="fine-print">
               Ảnh và PDF được lưu tại server. Ebook chỉ hiển thị công khai sau
               khi tải PDF thành công.
             </p>
-            <button className="button button-dark full-width">
-              {editing ? "Lưu thay đổi" : "Đăng sách"}
+            <button className="button button-dark full-width" disabled={submitting}>
+              {submitting ? "Đang lưu…" : editing ? "Lưu thay đổi" : "Đăng sách"}
               <ArrowUpRight size={17} />
             </button>
           </>

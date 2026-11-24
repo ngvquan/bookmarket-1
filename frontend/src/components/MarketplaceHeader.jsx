@@ -1,4 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import {
   BookOpen,
   Search,
@@ -15,8 +16,10 @@ import {
   LayoutDashboard,
   MessageCircle,
   Bell,
+  TicketPercent,
 } from "lucide-react";
 import { catalogSections } from "../data/catalog.js";
+import VoiceSearchButton from "./VoiceSearchButton.jsx";
 
 export default function MarketplaceHeader({
   profile,
@@ -32,6 +35,12 @@ export default function MarketplaceHeader({
   onLogout,
 }) {
   const navigate = useNavigate();
+  const searchInput = useRef(null);
+  const runSearch = (query) => {
+    const value = String(query || "").trim();
+    navigate(value ? `/tim-kiem?q=${encodeURIComponent(value)}` : "/tim-kiem");
+    setMenu(false);
+  };
   return (
     <>
       <header className="site-header commerce-header">
@@ -54,21 +63,21 @@ export default function MarketplaceHeader({
                 const query = String(
                   new FormData(event.currentTarget).get("q") || "",
                 ).trim();
-                navigate(
-                  query
-                    ? `/tim-kiem?q=${encodeURIComponent(query)}`
-                    : "/tim-kiem",
-                );
-                setMenu(false);
+                runSearch(query);
               }}
             >
               <Search size={20} />
               <input
+                ref={searchInput}
                 name="q"
                 type="search"
                 aria-label="Tìm sách trên BookMarket"
                 placeholder="Bạn muốn tìm cuốn sách nào?"
               />
+              <VoiceSearchButton onTranscript={(transcript) => {
+                if (searchInput.current) searchInput.current.value = transcript;
+                runSearch(transcript);
+              }} />
               <button type="submit" aria-label="Tìm kiếm">
                 <span className="desktop-search-label">Tìm kiếm</span>
                 <span className="mobile-search-label">Tìm</span>
@@ -117,6 +126,7 @@ export default function MarketplaceHeader({
                       ? [
                           ["/ho-so", UserRound, "Hồ sơ cá nhân"],
                           ["/thong-bao", Bell, "Thông báo đơn hàng"],
+                          ["/voucher", TicketPercent, "Voucher của tôi"],
                         ]
                       : []),
                     ["/don-hang", Package, "Đơn hàng của tôi"],

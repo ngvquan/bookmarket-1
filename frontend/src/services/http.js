@@ -27,7 +27,7 @@ export function saveToken(token) {
 }
 
 export async function api(path, options = {}) {
-  const { _rawBody, ...requestOptions } = options;
+  const { _rawBody, _baseUrl, ...requestOptions } = options;
   const headers = { ...options.headers };
   const token = getToken();
 
@@ -40,7 +40,7 @@ export async function api(path, options = {}) {
 
   let response;
   try {
-    response = await fetch(apiBaseUrl + path, {
+    response = await fetch((_baseUrl || apiBaseUrl) + path, {
       ...requestOptions,
       headers,
       credentials: "omit",
